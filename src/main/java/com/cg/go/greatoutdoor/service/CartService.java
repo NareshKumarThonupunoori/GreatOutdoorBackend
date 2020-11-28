@@ -21,6 +21,39 @@ public class CartService implements ICartService{
 	private ICartItemRepository cartRepository;
 
 	
+	public List<CartItemEntity> findAllCartItems() {
+		List<CartItemEntity> list=cartRepository.findAll();
+		
+		return list;
+	}
+	
+	
+	//Adding CartItemEntity if record not exists in the table
+		@Override
+		public CartItemEntity addCart(CartItemEntity cartItemEntity) {
+			boolean exists=cartItemEntity.getCartId()!=null && cartRepository.existsById(cartItemEntity.getCartId());
+	        if(exists){
+	            throw new CartException("Cart already exists for id="+cartItemEntity.getCartId());
+	        }
+	        CartItemEntity cartItem=cartRepository.save(cartItemEntity);
+			return cartItem;
+		}
+		
+	//Updating fields of CartItemEntity if record exists in the table
+	@Override
+	public CartItemEntity updateCart(CartItemEntity cartItemEntity) {
+		boolean exists=cartItemEntity.getCartId()!=null && cartRepository.existsById(cartItemEntity.getCartId());
+	    if(!exists){
+	        throw new CartException("Cart does not exists for id="+cartItemEntity.getCartId());
+	    }
+	    CartItemEntity cartItem=cartRepository.save(cartItemEntity);
+	    return cartItem;
+	}
+	
+	
+	
+	
+	/*
 	//CartList based on userId
 	@Override
 	public List<CartItemEntity> findCartlist(Integer userId) {
@@ -30,31 +63,6 @@ public class CartService implements ICartService{
 		}
 		return list;
 	}
-	
-
-	//Adding CartItemEntity if record not exists in the table
-	@Override
-	public CartItemEntity addCart(CartItemEntity cartItemEntity) {
-		boolean exists=cartItemEntity.getCartId()!=null && cartRepository.existsById(cartItemEntity.getCartId());
-        if(exists){
-            throw new CartException("Cart already exists for id="+cartItemEntity.getCartId());
-        }
-        CartItemEntity cartItem=cartRepository.save(cartItemEntity);
-		return cartItem;
-	}
-
-	
-	//Updating fields of CartItemEntity if record exists in the table
-	@Override
-	public CartItemEntity updateCart(CartItemEntity cartItemEntity) {
-		boolean exists=cartItemEntity.getCartId()!=null && cartRepository.existsById(cartItemEntity.getCartId());
-        if(!exists){
-            throw new CartException("Cart does not exists for id="+cartItemEntity.getCartId());
-        }
-        CartItemEntity cartItem=cartRepository.save(cartItemEntity);
-		return cartItem;
-	}
-
 	
 	//Deletion of records based on userId
 	@Override
@@ -107,6 +115,6 @@ public class CartService implements ICartService{
 		}
 		return null;
 		
-	}
+	}*/
 
 }

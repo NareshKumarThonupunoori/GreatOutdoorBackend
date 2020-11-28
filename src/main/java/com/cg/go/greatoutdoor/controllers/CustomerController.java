@@ -67,7 +67,7 @@ public class CustomerController {
     	return response;
 	}
 	
-	@GetMapping("by/customerId/{id}")
+	@GetMapping("/by/customerId/{id}")
 	public CustomerDetails findCustomer(@PathVariable("id") Integer customerId) {
 		Customer customer=customerService.findById(customerId);
 		CustomerDetails details=toDetails(customer);

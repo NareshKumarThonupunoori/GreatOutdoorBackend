@@ -35,7 +35,7 @@ public class CartItemUtil {
 		Integer totalQuantity=0;
 		double totalPrice=0;
 		
-		CartItemEntity cart=new CartItemEntity();
+		CartItemEntity cart=new CartItemEntity();/*
 		cart.setUserId(cartItem.getUserId());
 		Map<ProductEntity,Integer> products=convertMap(cartItem.getProducts());
 		Set<ProductEntity> productSet=products.keySet();
@@ -45,7 +45,7 @@ public class CartItemUtil {
 		}
 		cart.setProducts(products);
 		cart.setCartTotalPrice(totalPrice);
-		cart.setTotalQuantity(totalQuantity);
+		cart.setTotalQuantity(totalQuantity);*/
 		return cart;
 	}
 
@@ -53,7 +53,7 @@ public class CartItemUtil {
 		Integer totalQuantity=0;
 		double totalPrice=0;
 		CartItemEntity cart=new CartItemEntity();
-		cart.setUserId(cartItem.getUserId());
+		/*cart.setUserId(cartItem.getUserId());
 		Map<ProductEntity,Integer> products=convertMap(cartItem.getProducts());
 		Set<ProductEntity> productSet=products.keySet();
 		for(ProductEntity product:productSet) {
@@ -62,7 +62,7 @@ public class CartItemUtil {
 		}
 		cart.setProducts(products);
 		cart.setCartTotalPrice(totalPrice);
-		cart.setTotalQuantity(totalQuantity);
+		cart.setTotalQuantity(totalQuantity);*/
 		return cart;
 	}
 }

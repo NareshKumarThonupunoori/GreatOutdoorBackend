@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface ICartItemRepository extends JpaRepository<CartItemEntity,Integer>{
-	@Query(" from CartItemEntity where userId=:userId")
+	/*@Query(" from CartItemEntity where userId=:userId")
 	List<CartItemEntity> findByUserId(@Param("userId") Integer userId);
-	
+	*/
 }

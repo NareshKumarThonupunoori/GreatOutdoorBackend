@@ -1,12 +1,11 @@
 package com.cg.go.greatoutdoor.entity;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import java.util.Map;
 import java.util.Objects;
 
 @Table(name="cartItem")
@@ -15,54 +14,36 @@ public class CartItemEntity {
 	@GeneratedValue
 	@Id
 	private Integer cartId;
-	private Integer userId;
-	@ElementCollection
-	private Map<ProductEntity, Integer> products ;// product ,quantity
-	private double cartTotalPrice;
-	private Integer totalQuantity;
 	
+	@OneToOne
+	private ProductEntity product ;// product ,quantity
 	
-	
-	public CartItemEntity(Integer userId, double cartTotalPrice, Map<ProductEntity,Integer> products,double totalPrice,Integer quantity) {
+
+	public CartItemEntity(ProductEntity product) {
 		
-		this.userId = userId;
-		this.products = products;
-		this.cartTotalPrice = totalPrice;
-		this.totalQuantity = quantity;
+		this.product = product;
 	}
+
 	public CartItemEntity() {
-		 
+		
 	}
+	
 	public Integer getCartId() {
 		return cartId;
 	}
+
 	public void setCartId(Integer cartId) {
 		this.cartId = cartId;
 	}
-	public Integer getUserId() {
-		return userId;
+
+	public ProductEntity getProduct() {
+		return product;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
-	public Map<ProductEntity, Integer> getProducts() {
-		return products;
-	}
-	public void setProducts(Map<ProductEntity, Integer> products) {
-		this.products = products;
-	}
-	public double getCartTotalPrice() {
-		return cartTotalPrice;
-	}
-	public void setCartTotalPrice(double cartTotalPrice) {
-		this.cartTotalPrice = cartTotalPrice;
-	}
-	public Integer getTotalQuantity() {
-		return totalQuantity;
-	}
-	public void setTotalQuantity(Integer totalQuantity) {
-		this.totalQuantity = totalQuantity;
-	}
+
 	@Override
 	public int hashCode() {
 		int hash=Objects.hashCode(cartId);

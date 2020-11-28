@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,9 @@ import com.cg.go.greatoutdoor.entity.CartItemEntity;
 import com.cg.go.greatoutdoor.service.ICartService;
 import com.cg.go.greatoutdoor.util.CartItemUtil;
 
-@RequestMapping("/cartitem")
+
+@CrossOrigin(origins="*")
+@RequestMapping("/cart")
 @RestController
 public class CartController {
 		
@@ -39,42 +42,34 @@ public class CartController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/add")
-    public CartItemDetails add(@RequestBody CreateCartItemRequest requestData) {
-        CartItemEntity cartItem = cartItemUtil.convertToCartItem(requestData);
-        cartItem = cartService.addCart(cartItem);
-        CartItemDetails details = toDetails(cartItem);
+    public CartItemDetails add(@RequestBody CreateCartItemRequest cartItem) {
+        CartItemEntity cartItem1 =new CartItemEntity(cartItem.getProduct());
+        cartItem1 = cartService.addCart(cartItem1);
+        CartItemDetails details = toDetails(cartItem1);
         return details;
     }
 	
 
 	@PutMapping("/update")
     public CartItemDetails update(@RequestBody UpdateCartItemRequest requestData) {
-		CartItemEntity cartItem = cartItemUtil.convertToCartItem(requestData);
+		CartItemEntity cartItem =new CartItemEntity(requestData.getProduct());
 		cartItem.setCartId(requestData.getCartId());
 		cartItem = cartService.updateCart(cartItem);
         CartItemDetails details = toDetails(cartItem);
         return details;
     }
 
-	@GetMapping("/by/userid/{id}")
-    public List<CartItemDetails> findCartlist(@PathVariable("id") Integer userId) {
-    	List<CartItemEntity> cartItem = cartService.findCartlist(userId);
+	@GetMapping("/allCartItems")
+    public List<CartItemDetails> getAllCartItems() {
+    	List<CartItemEntity> cartItem = cartService.findAllCartItems();
         List<CartItemDetails> details = toDetails(cartItem);
         return details;
     }
     
-	@DeleteMapping("/remove/userid/{id}")
-    public String deleteProduct(@PathVariable("id") Integer userId) {
-        cartService.deleteCartlist(userId);
-        String response = "removed cartItems with userid=" + userId;
-        return response;
-    }
-	
-	
+
 	//To convert cartItemEntity to CartItemDetails
 	private CartItemDetails toDetails(CartItemEntity cartItem) {
-		CartItemDetails details =new CartItemDetails(cartItem.getCartId(),cartItem.getUserId(),cartItem.getCartTotalPrice(),
-				cartItem.getProducts(),cartItem.getTotalQuantity());
+		CartItemDetails details =new CartItemDetails(cartItem.getCartId(),cartItem.getProduct());
 		return details;
 	}
 	

@@ -3,62 +3,43 @@ package com.cg.go.greatoutdoor.dto.cartItem;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.cg.go.greatoutdoor.entity.ProductEntity;
 
 public class CartItemDetails {
+	@GeneratedValue
 	@Id
 	private Integer cartId;
-	private Integer userId;
-	//@OneToMany(cascade = {CascadeType.ALL})	
-	@ElementCollection
-	private Map<ProductEntity, Integer> products ;// product ,quantity
-	private double cartTotalPrice;
-	private Integer totalQuantity;
+
+	private ProductEntity product ;// product ,quantity
 	
-	
-	
-	public CartItemDetails(Integer cartId,Integer userId, double cartTotalPrice,Map<ProductEntity, Integer> products, Integer totalQuantity) {
-		
+
+	public CartItemDetails( Integer cartId, ProductEntity product) {
 		this.cartId=cartId;
-		this.userId = userId;
-		this.cartTotalPrice = cartTotalPrice;
-		this.products = products;
-		this.totalQuantity = totalQuantity;
+		this.product = product;
 	}
+
 	public CartItemDetails() {
-		 
+		
 	}
+	
 	public Integer getCartId() {
 		return cartId;
 	}
+
 	public void setCartId(Integer cartId) {
 		this.cartId = cartId;
 	}
-	public Integer getUserId() {
-		return userId;
+
+	public ProductEntity getProduct() {
+		return product;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	public Map<ProductEntity, Integer> getProducts() {
-		return products;
-	}
-	public void setProducts(Map<ProductEntity, Integer> products) {
-		this.products = products;
-	}
-	public double getCartTotalPrice() {
-		return cartTotalPrice;
-	}
-	public void setCartTotalPrice(double cartTotalPrice) {
-		this.cartTotalPrice = cartTotalPrice;
-	}
-	public Integer getTotalQuantity() {
-		return totalQuantity;
-	}
-	public void setTotalQuantity(Integer totalQuantity) {
-		this.totalQuantity = totalQuantity;
+
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
 	
 }
